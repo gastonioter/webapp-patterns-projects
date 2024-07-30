@@ -16,8 +16,7 @@ function renderApp() {
 }
 
 function bindListeners() {
-  document.addEventListener("keydown", addTodoShortcut);
-  document.addEventListener("keydown", undo);
+  window.addEventListener("keydown", undo);
 }
 function loadFromStorage() {
   LocalStorage.load();
@@ -26,11 +25,5 @@ function undo(e) {
   if (e.ctrlKey && e.key == "z") {
     executor.setCommand(new UndoCommand());
     executor.executeCommand();
-  }
-}
-function addTodoShortcut(e) {
-  if (e.ctrlKey && e.key == "p") {
-    e.preventDefault();
-    addTodo();
   }
 }

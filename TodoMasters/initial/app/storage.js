@@ -6,13 +6,14 @@ export const LocalStorage = {
     if (localStorage.getItem("todos")) {
       const todosArray = JSON.parse(localStorage.getItem("todos"));
       todosArray.forEach((todo) => {
-        TodoList.getInstance().add(new TodoItem(todo.text));
+        TodoList.getInstance().add(new TodoItem(todo.text, todo.done));
       });
     }
   },
 
   save() {
     const todosList = TodoList.getInstance().items;
+    console.log(todosList);
 
     const todosArray = Array.from(todosList);
     localStorage.setItem("todos", JSON.stringify(todosArray));

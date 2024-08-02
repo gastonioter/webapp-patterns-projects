@@ -38,6 +38,10 @@ class TodoList {
       this.notify();
     }
   }
+  mark(text, value) {
+    this.findByText(text).completition(value);
+    this.notify();
+  }
   delete(text) {
     const todos = Array.from(this.#data);
     const toDelete = todos.find((t) => t.text == text);

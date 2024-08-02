@@ -33,10 +33,10 @@ export class TodoApp extends HTMLElement {
 
     this.form.addEventListener("submit", this.sumbitHandler.bind(this));
     this.clear.addEventListener("click", this.handleClearClick.bind(this));
-
     this.ul.innerHTML = "";
 
     Array.from(items).forEach(this.createTodoItems.bind(this));
+    
   }
 
   handleClearClick(e) {

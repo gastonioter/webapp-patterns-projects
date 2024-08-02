@@ -13,21 +13,25 @@ export class TodoItem extends HTMLElement {
 
   connectedCallback() {
     const text = this.dataset.text;
-    const { done } = TodoList.getInstance().findByText(text);
+
+    const todo = TodoList.getInstance().findByText(text);
+
     this.innerHTML = interpolate(this.template.innerHTML, {
       text,
     });
 
     this.$(".delete-btn").addEventListener("click", this.removeTodo.bind(this));
 
-    this.$("[type='checkbox']").checked = done;
+    this.addEventListener("dblclick", (e) => {});
+
+    this.$("[type='checkbox']").checked = todo?.done;
 
     this.$("[type='checkbox']").addEventListener("change", (e) => {
       TodoList.getInstance().mark(text, e.target.checked);
     });
   }
 
-  removeTodo(e) {
+  removeTodo() {
     this.executor.setCommand(new DeleteCommand(this.dataset.text));
     this.executor.executeCommand();
   }

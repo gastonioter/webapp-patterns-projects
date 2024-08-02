@@ -54,7 +54,18 @@ class TodoList {
   }
   replaceAll(list) {
     this.#data = list;
+    console.log("replaced:", list);
 
+    this.notify();
+  }
+  getPendings() {
+    return Array.from(this.#data).filter((todo) => !todo.done);
+  }
+  clearCompleted() {
+    const pendings = Array.from(this.#data).filter((todo) => todo.done);
+    pendings.forEach((p) => {
+      this.#data.delete(p);
+    });
     this.notify();
   }
 }

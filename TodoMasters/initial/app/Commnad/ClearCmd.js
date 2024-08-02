@@ -6,6 +6,6 @@ export class ClearCmd {
   }
 
   execute() {
-    TodoList.getInstance().replaceAll(new Set());
+    TodoList.getInstance().clearCompleted();
   }
 }

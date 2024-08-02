@@ -11,6 +11,7 @@ export const TodoHistory = {
   pop() {
     if (this.history.length > 1) {
       this.history.pop();
+
       return this.history.pop();
     }
   },

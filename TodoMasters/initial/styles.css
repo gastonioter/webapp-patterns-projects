@@ -53,9 +53,11 @@ a {
   grid-template-columns: auto auto 1fr;
   gap: 2rem;
   border-bottom: 1px solid #ccc;
-  padding: 1.5rem 2.5rem ;
+  padding: 1.5rem 2.5rem;
   transition: transform 0.3s;
+  font-size: 2rem;
 }
+
 .todo-item p {
   margin: 0;
 }
@@ -70,6 +72,7 @@ a {
 
 [type="checkbox"]:checked ~ p {
   text-decoration: line-through;
+  color: #928f8f;
 }
 [type="checkbox"]:checked + .checkbox {
   outline-color: #d96919;
@@ -85,6 +88,7 @@ a {
   outline: 1px solid #3b2d25;
   outline-offset: 5px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .delete-btn {

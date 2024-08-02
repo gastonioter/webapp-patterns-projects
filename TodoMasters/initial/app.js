@@ -5,6 +5,10 @@ import { UndoCommand } from "./app/Commnad/UndoCmd.js";
 import "./components/TodoApp.js";
 import "./components/TodoItem.js";
 
+HTMLElement.on = function (event, listener) {
+  this.addEventListener(event, listener);
+};
+
 const executor = new Executor();
 
 document.addEventListener("DOMContentLoaded", renderApp);

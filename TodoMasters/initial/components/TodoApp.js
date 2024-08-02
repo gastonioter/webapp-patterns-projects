@@ -2,41 +2,43 @@ import AddCommnad from "../app/Commnad/AddCmd.js";
 import { ClearCmd } from "../app/Commnad/ClearCmd.js";
 import { Executor } from "../app/Commnad/Executor.js";
 import TodoList from "../app/TodoList.js";
+import { interpolate } from "../utils/interpolate.js";
 
 export class TodoApp extends HTMLElement {
   executor = new Executor();
-
+  isEditing = false;
+  #data;
   constructor() {
     super();
+    this.template = document.getElementById("todoapp-template");
     this.$ = (css) => this.querySelector(css);
   }
 
   connectedCallback() {
-    var template = document.getElementById("todoapp-template");
-    this.appendChild(template.content.cloneNode(true));
+    this.#data = TodoList.getInstance().items;
+    this.appendChild(this.template.content.cloneNode(true));
 
     this.input = this.$("#todo-input");
-    this.ul = this.$(".todo-list");
-    this.form = this.$("form");
-    this.clear = this.$("#clear");
+    this.ul = this.$("ul");
+    this.pendings = this.$("#items-count");
 
     this.render();
+    window.addEventListener("keydown", this.shortcutHandler.bind(this));
+    this.$("form").addEventListener("submit", this.sumbitHandler.bind(this));
+    this.$("#clear").addEventListener(
+      "click",
+      this.handleClearClick.bind(this)
+    );
+
     TodoList.getInstance().addObserver(() => {
       this.render();
     });
-
-    window.addEventListener("keydown", this.shortcutHandler.bind(this));
   }
 
   render() {
-    const items = TodoList.getInstance().items;
-
-    this.form.addEventListener("submit", this.sumbitHandler.bind(this));
-    this.clear.addEventListener("click", this.handleClearClick.bind(this));
     this.ul.innerHTML = "";
-
-    Array.from(items).forEach(this.createTodoItems.bind(this));
-    
+    Array.from(this.#data).forEach(this.createTodoItems.bind(this));
+    this.pendings.textContent = TodoList.getInstance().getPendings().length;
   }
 
   handleClearClick(e) {
@@ -58,8 +60,14 @@ export class TodoApp extends HTMLElement {
       this.input.value = "";
     }
   }
+
   sumbitHandler(e) {
     e.preventDefault();
+    if (this.isEditing) {
+      console.log("edited");
+
+      return;
+    }
     this.executor.setCommand(new AddCommnad(this.input.value));
     this.executor.executeCommand();
     this.input.value = "";

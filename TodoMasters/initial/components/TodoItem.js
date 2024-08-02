@@ -1,19 +1,21 @@
 import DeleteCommand from "../app/Commnad/DeleteCmd.js";
 import { Executor } from "../app/Commnad/Executor.js";
+import { interpolate } from "../utils/interpolate.js";
 
 export class TodoItem extends HTMLElement {
   executor = new Executor();
   constructor() {
     super();
+    this.template = document.getElementById("todo-item-template");
   }
 
   connectedCallback() {
-    const template = document.getElementById("todo-item-template");
-    const content = template.content.cloneNode(true);
-    this.appendChild(content);
     const text = this.dataset.text;
 
-    this.querySelector("li").insertAdjacentText("afterbegin", text);
+    this.innerHTML = interpolate(this.template.innerHTML, {
+      text,
+    });
+
     this.querySelector(".delete-btn").addEventListener(
       "click",
       this.removeTodo.bind(this)
@@ -23,7 +25,6 @@ export class TodoItem extends HTMLElement {
   removeTodo(e) {
     this.executor.setCommand(new DeleteCommand(this.dataset.text));
     this.executor.executeCommand();
-    console.log("executed");
   }
 }
 

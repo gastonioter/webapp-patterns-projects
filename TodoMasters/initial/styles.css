@@ -1,60 +1,230 @@
 body {
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #3b2d25;
   font-size: 1.6rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+*,
+::after,
+::before {
+  box-sizing: inherit;
+}
 html {
   font-size: 62.5%;
+  box-sizing: border-box;
+}
+.heading {
+  text-align: center;
+  font-size: 6rem;
+  color: #d96919;
+  font-weight: 700;
+}
+todo-app {
+  padding-top: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: #3b2d25;
 }
 .container {
   background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+    0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
+    0 17px 2px -6px rgba(0, 0, 0, 0.2);
+  width: min(90%, 550px);
+  margin: 0 auto;
+  /* padding: 3rem 0 1rem 0; */
 }
+
+/* TODOS */
+
 .todo-list {
   list-style: none;
   padding: 0;
-}
-.todo-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #ccc;
+  margin: 0;
 }
 
-button {
-  border: none;
-  padding: 0.5rem;
-  border-radius: 3px;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 1.4rem;
-}
-form {
+/* TODO ITEM */
+.todo-item {
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  column-gap: 1rem;
+  grid-template-columns: auto auto 1fr;
+  gap: 2rem;
+  border-bottom: 1px solid #ccc;
+  padding: 1.5rem 2.5rem ;
+  transition: transform 0.3s;
 }
-form input {
-  flex: 1;
-  border: none;
-  border-radius: 3px;
-  border: 1.5px solid #383232;
+.todo-item p {
+  margin: 0;
+}
+[type="checkbox"] {
+  border: 1px solid red;
+  display: none;
+}
+[type="checkbox"]:checked + .checkbox svg {
+  outline-color: #d96919;
+  opacity: 1;
+}
+
+[type="checkbox"]:checked ~ p {
+  text-decoration: line-through;
+}
+[type="checkbox"]:checked + .checkbox {
+  outline-color: #d96919;
+  background-color: #d96919;
+}
+.checkbox svg {
+  opacity: 0;
+  color: #d96919;
+}
+.checkbox {
+  height: 25px;
+  width: 25px;
+  outline: 1px solid #3b2d25;
+  outline-offset: 5px;
+  border-radius: 50%;
 }
 
 .delete-btn {
-  background-color: #ffa4a4;
-  font-size: 1.2rem;
-  font-weight: 500;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #3b2d25;
+  border: none;
+  background-color: transparent;
+  justify-self: end;
+  width: 30px;
+  height: 30px;
 }
-#add-btn {
-  background-color: #9ecaff;
+
+.todo-item:focus {
+  border: 1px solid #3b2d25;
+  transform: scale(1.01);
+}
+
+/* FORM */
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+form input {
+  flex: 1;
+  background-color: #ccc;
+  border: none;
+  border-radius: 1px;
+  padding: 2rem 5rem;
+  font-size: 1.8rem;
+  border: 2px solid transparent;
+}
+form input:focus {
+  outline: none;
+  border: 2px solid #d96919;
+}
+form input::placeholder {
+  font-style: italic;
+  font-size: 1.8rem;
+  vertical-align: center;
+  color: #3b2d25;
+}
+
+/* BUTTONS */
+
+.button {
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.button--delete {
+  background-color: transparent;
+  color: #3b2d25;
+  padding: 0.5rem;
+  font-size: 1.6rem;
+  grid-column: 5/6;
+}
+.button--add {
+  background-color: #d96919;
+  font-size: 3rem;
+  color: #3b2d25;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+.button--filter {
+  background-color: transparent;
+  font-size: 1.2rem;
+  border: none;
+  border: 1px solid red;
+  outline-offset: 0px;
+  padding: 0;
+  margin: 0;
+}
+
+/* FOOTER */
+
+.footer {
+  display: grid;
+  grid-template-columns: auto repeat(2, 1fr);
+  padding: 0 1rem;
+  font-size: 1.4rem;
+  align-items: center;
+}
+.filters {
+  grid-column: 2/4;
+  margin: 0 auto;
+}
+.filter {
+  font-size: 1.6rem;
+  padding: 0.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.filter::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  height: 1px;
+  opacity: 0;
+  background-color: #3b2d25;
+  transition: all 0.4s ease-in-out;
+}
+.filter--active::after {
+  opacity: 1;
+  right: 0;
+  font-weight: bold;
+}
+.filter--active {
+  font-weight: bold;
+}
+
+#items-count {
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+  }
+  .footer .filters {
+    flex-basis: 100%;
+    order: -1;
+  }
+  .filters {
+    text-align: center;
+  }
+  p {
+    margin: 0;
+  }
+  .input {
+    padding: 3rem 2rem;
+  }
 }

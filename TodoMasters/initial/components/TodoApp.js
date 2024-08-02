@@ -8,18 +8,18 @@ export class TodoApp extends HTMLElement {
 
   constructor() {
     super();
-
-    this.root = this.attachShadow({ mode: "open" });
-    var template = document.getElementById("todoapp-template");
-    this.root.appendChild(template.content.cloneNode(true));
-
-    this.input = this.root.querySelector("#todo-input");
-    this.ul = this.root.querySelector(".todo-list");
-    this.form = this.root.querySelector("form");
-    this.clear = this.root.querySelector("#clear");
+    this.$ = (css) => this.querySelector(css);
   }
 
   connectedCallback() {
+    var template = document.getElementById("todoapp-template");
+    this.appendChild(template.content.cloneNode(true));
+
+    this.input = this.$("#todo-input");
+    this.ul = this.$(".todo-list");
+    this.form = this.$("form");
+    this.clear = this.$("#clear");
+
     this.render();
     TodoList.getInstance().addObserver(() => {
       this.render();

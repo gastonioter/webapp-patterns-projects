@@ -4,26 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ToDo Masters</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./styles.css" />
     <script src="app.js" defer type="module"></script>
-    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <template id="todoapp-template">
-      <link rel="stylesheet" href="./styles.css" />
+      <h1 class="heading">My Todos</h1>
       <div class="container">
-        <h1>ToDo Masters</h1>
         <form>
-          <input type="text" id="todo-input" placeholder="Add a new task" />
-          <button id="add-btn">Add</button>
+          <input
+            class="input"
+            type="text"
+            id="todo-input"
+            placeholder="What needs to be done?"
+          />
+          <!-- <button class="button button--add" id="add-btn">+</button> -->
         </form>
+
         <ul id="todo-list" class="todo-list"></ul>
-        <button id="clear">Clear All</button>
+
+        <div class="footer">
+          <p><span id="items-count">0</span> items left</p>
+          <div class="filters">
+            <a href="#" class="filter filter--active">All</a>
+            <a href="#" class="filter">Active</a>
+            <a href="#" class="filter">Completed</a>
+          </div>
+          <button class="button button--delete" id="clear">
+            Clear Completed
+          </button>
+        </div>
       </div>
     </template>
 
     <template id="todo-item-template">
-      <li class="todo-item">
-        <button class="delete-btn">DELETE</button>
+      <li class="todo-item" tabindex="0">
+        <input type="checkbox" id="${text}" />
+        <label class="checkbox" for="${text}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path
+              d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+            />
+          </svg>
+        </label>
+        <p>${text}</p>
+        <button tabindex="0" class="delete-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path
+              fill="#d65454"
+              d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"
+            />
+          </svg>
+        </button>
       </li>
     </template>
   </body>

@@ -28,7 +28,8 @@ class TodoList {
     return this.#data;
   }
 
-  // Behaivor
+  // ========================
+  // ========================
 
   add(todo) {
     const todos = Array.from(this.#data);
@@ -58,7 +59,11 @@ class TodoList {
 
     this.notify();
   }
-  getPendings() {
+
+  // ========================
+  // ========================
+
+  getActives() {
     return Array.from(this.#data).filter((todo) => !todo.done);
   }
   clearCompleted() {
@@ -68,6 +73,9 @@ class TodoList {
     });
     this.notify();
   }
+  active(){}
+  completed(){}
+  all(){}
 }
 
 Object.assign(TodoList.prototype, observerMixin);

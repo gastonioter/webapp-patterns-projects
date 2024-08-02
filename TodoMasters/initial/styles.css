@@ -98,13 +98,9 @@ a {
   border: none;
   background-color: transparent;
   justify-self: end;
+
   width: 30px;
   height: 30px;
-}
-
-.todo-item:focus {
-  border: 1px solid #3b2d25;
-  transform: scale(1.01);
 }
 
 /* FORM */

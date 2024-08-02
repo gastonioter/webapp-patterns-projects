@@ -14,7 +14,7 @@ export class TodoItem extends HTMLElement {
   connectedCallback() {
     const text = this.dataset.text;
 
-    const todo = TodoList.getInstance().findByText(text);
+    const { done } = TodoList.getInstance().findByText(text);
 
     this.innerHTML = interpolate(this.template.innerHTML, {
       text,
@@ -24,7 +24,7 @@ export class TodoItem extends HTMLElement {
 
     this.addEventListener("dblclick", (e) => {});
 
-    this.$("[type='checkbox']").checked = todo?.done;
+    this.$("[type='checkbox']").checked = done;
 
     this.$("[type='checkbox']").addEventListener("change", (e) => {
       TodoList.getInstance().mark(text, e.target.checked);

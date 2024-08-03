@@ -36,7 +36,7 @@ class TodoList {
     const alreadyExists = todos.some((t) => t.equals(todo));
     if (!alreadyExists) {
       this.#data.add(todo);
-      this.notify();
+      this.notify("todoschange");
     }
   }
   isEmpty() {
@@ -44,13 +44,13 @@ class TodoList {
   }
   mark(text, value) {
     this.findByText(text).completition(value);
-    this.notify();
+    this.notify("todoschange");
   }
   delete(text) {
     const todos = Array.from(this.#data);
     const toDelete = todos.find((t) => t.text == text);
     this.#data.delete(toDelete);
-    this.notify();
+    this.notify("todoschange");
   }
   findByText(text) {
     const todos = Array.from(this.#data);
@@ -60,7 +60,7 @@ class TodoList {
     this.#data = list;
     console.log("replaced:", list);
 
-    this.notify();
+    this.notify("todoschange");
   }
 
   // ========================
@@ -74,7 +74,7 @@ class TodoList {
     pendings.forEach((p) => {
       this.#data.delete(p);
     });
-    this.notify();
+    this.notify("todoschange");
   }
   active() {}
   completed() {}

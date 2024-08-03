@@ -8,8 +8,7 @@ export default class DeleteCommand {
   }
   execute() {
     const [textTodo] = this.params;
-    console.log(textTodo);
-    
+
     this.reciver.delete(textTodo);
   }
 }

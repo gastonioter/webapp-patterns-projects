@@ -31,7 +31,7 @@ export class TodoApp extends HTMLElement {
       this.handleClearClick.bind(this)
     );
 
-    TodoList.getInstance().addObserver(() => {
+    TodoList.getInstance().addObserver("todoschange", () => {
       this.render();
     });
   }

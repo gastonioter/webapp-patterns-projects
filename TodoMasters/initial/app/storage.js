@@ -18,4 +18,4 @@ export const LocalStorage = {
   },
 };
 
-TodoList.getInstance().addObserver(LocalStorage.save);
+TodoList.getInstance().addObserver("todoschange", LocalStorage.save);

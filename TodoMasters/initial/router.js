@@ -8,13 +8,17 @@ const router = {
 };
 
 function init() {
-  go(location.pathname);
-
   document.querySelectorAll(".filter").forEach((link) => {
     link.classList.remove("filter--active");
-    enhanceLink(link);
     links.push(link);
+    enhanceLink(link);
   });
+
+  window.addEventListener("popstate", (e) => {
+    go(e.state.path, false);
+  });
+
+  go(location.pathname);
 }
 
 function enhanceLink(link) {
@@ -28,26 +32,16 @@ function enhanceLink(link) {
 
 function go(path, saveToHistory = true) {
   if (saveToHistory) {
-    history.replaceState({ path }, null, path);
-  }
-
-  switch (path) {
-    case "/":
-      TodoList.getInstance().all();
-
-      break;
-    case "/active":
-      TodoList.getInstance().active();
-      break;
-    case "/completed":
-      TodoList.getInstance().completed();
-      break;
-
-    default:
-      break;
+    history.pushState({ path }, null, path);
   }
 
   setActiveLink(path);
+
+  const todoapp = document.querySelector("todo-app");
+  const [filter] = location.pathname.split("/").slice(1);
+  todoapp.dataset.filter = filter;
+
+  TodoList.getInstance().notify("todosfilter");
 }
 
 function setActiveLink(path) {

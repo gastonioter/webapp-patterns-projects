@@ -15,8 +15,10 @@
     <script src="/app.js" defer type="module"></script>
   </head>
   <body>
-    <template id="todoapp-template">
+    <header>
       <h1 class="heading">My Todos</h1>
+    </header>
+    <template id="todoapp-template">
       <div class="container">
         <form>
           <input
@@ -43,7 +45,6 @@
         </div>
       </div>
     </template>
-
     <template id="todo-item-template">
       <li class="todo-item" tabindex="0">
         <input type="checkbox" value="done" id="${text}" />
@@ -66,5 +67,9 @@
         </button>
       </li>
     </template>
+
+    <footer>
+      <p>Copyright &copy;</p>
+    </footer>
   </body>
 </html>

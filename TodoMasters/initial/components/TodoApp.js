@@ -2,12 +2,13 @@ import AddCommnad from "../app/Commnad/AddCmd.js";
 import { ClearCmd } from "../app/Commnad/ClearCmd.js";
 import { Executor } from "../app/Commnad/Executor.js";
 import TodoList from "../app/TodoList.js";
-import { interpolate } from "../utils/interpolate.js";
+import filtersMap from "../utils/filters.js";
 
+const todoList = TodoList.getInstance();
 export class TodoApp extends HTMLElement {
   executor = new Executor();
-  isEditing = false;
   #data;
+
   constructor() {
     super();
     this.template = document.getElementById("todoapp-template");
@@ -15,34 +16,33 @@ export class TodoApp extends HTMLElement {
   }
 
   connectedCallback() {
-    this.#data = TodoList.getInstance().items;
     this.appendChild(this.template.content.cloneNode(true));
 
     this.input = this.$("#todo-input");
     this.ul = this.$("ul");
     this.activesCount = this.$("#items-count");
     this.footer = this.$(".footer");
+    this.container = this.$(".container");
 
-    this.render();
-    window.addEventListener("keydown", this.shortcutHandler.bind(this));
-    this.$("form").addEventListener("submit", this.sumbitHandler.bind(this));
-    this.$("#clear").addEventListener(
-      "click",
-      this.handleClearClick.bind(this)
-    );
+    this.setListeners();
 
-    TodoList.getInstance().addObserver("todoschange", () => {
+    document.startViewTransition(() => {
       this.render();
     });
   }
 
   render() {
     this.ul.innerHTML = "";
-    Array.from(this.#data).forEach(this.createTodoItems.bind(this));
-    this.activesCount.textContent = TodoList.getInstance().getActives().length;
-    const isEmpty = TodoList.getInstance().isEmpty();
+
+    this.#data = todoList.getByFilter(filtersMap.get(this.dataset.filter));
+
+    this.#data.forEach(this.createTodoItems.bind(this));
+    this.activesCount.textContent = todoList.getByFilter(
+      filtersMap.get("active")
+    ).length;
+    const isEmpty = todoList.isEmpty();
     this.footer.style.display = isEmpty ? "none" : "flex";
-    this.$(".container").classList.toggle("container--empty", isEmpty);
+    this.container.classList.toggle("container--empty", isEmpty);
   }
 
   handleClearClick(e) {
@@ -75,6 +75,20 @@ export class TodoApp extends HTMLElement {
     this.executor.setCommand(new AddCommnad(this.input.value));
     this.executor.executeCommand();
     this.input.value = "";
+  }
+  setListeners() {
+    window.addEventListener("keydown", this.shortcutHandler.bind(this));
+    this.$("form").addEventListener("submit", this.sumbitHandler.bind(this));
+    this.$("#clear").addEventListener(
+      "click",
+      this.handleClearClick.bind(this)
+    );
+
+    ["todoschange", "todosfilter"].forEach((event) => {
+      todoList.addObserver(event, () => {
+        this.render();
+      });
+    });
   }
 }
 

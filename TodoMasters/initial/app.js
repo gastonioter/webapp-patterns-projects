@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", loadFromStorage);
 
 function renderApp() {
   document.body.appendChild(document.createElement("todo-app"));
+
   router.init();
 }
 

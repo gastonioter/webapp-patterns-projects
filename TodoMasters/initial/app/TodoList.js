@@ -28,9 +28,6 @@ class TodoList {
     return this.#data;
   }
 
-  // ========================
-  // ========================
-
   add(todo) {
     const todos = Array.from(this.#data);
     const alreadyExists = todos.some((t) => t.equals(todo));
@@ -58,27 +55,20 @@ class TodoList {
   }
   replaceAll(list) {
     this.#data = list;
-    console.log("replaced:", list);
-
     this.notify("todoschange");
   }
 
-  // ========================
-  // ========================
-
-  getActives() {
-    return Array.from(this.#data).filter((todo) => !todo.done);
+  getByFilter(filterFn) {
+    return Array.from(this.#data).filter((todo) => filterFn(todo));
   }
+
   clearCompleted() {
-    const pendings = Array.from(this.#data).filter((todo) => todo.done);
-    pendings.forEach((p) => {
+    const completed = this.getByFilter((todo) => todo.done);
+    completed.forEach((p) => {
       this.#data.delete(p);
     });
     this.notify("todoschange");
   }
-  active() {}
-  completed() {}
-  all() {}
 }
 
 Object.assign(TodoList.prototype, observerMixin);

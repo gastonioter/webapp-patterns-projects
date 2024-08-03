@@ -28,7 +28,7 @@ function enhanceLink(link) {
 
 function go(path, saveToHistory = true) {
   if (saveToHistory) {
-    history.pushState({ path }, null, path);
+    history.replaceState({ path }, null, path);
   }
 
   switch (path) {

@@ -21,6 +21,7 @@ export class TodoApp extends HTMLElement {
     this.input = this.$("#todo-input");
     this.ul = this.$("ul");
     this.activesCount = this.$("#items-count");
+    this.footer = this.$(".footer");
 
     this.render();
     window.addEventListener("keydown", this.shortcutHandler.bind(this));
@@ -39,6 +40,9 @@ export class TodoApp extends HTMLElement {
     this.ul.innerHTML = "";
     Array.from(this.#data).forEach(this.createTodoItems.bind(this));
     this.activesCount.textContent = TodoList.getInstance().getActives().length;
+    const isEmpty = TodoList.getInstance().isEmpty();
+    this.footer.style.display = isEmpty ? "none" : "flex";
+    this.$(".container").classList.toggle("container--empty", isEmpty);
   }
 
   handleClearClick(e) {

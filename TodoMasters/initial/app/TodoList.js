@@ -39,6 +39,9 @@ class TodoList {
       this.notify();
     }
   }
+  isEmpty() {
+    return this.#data.size == 0;
+  }
   mark(text, value) {
     this.findByText(text).completition(value);
     this.notify();
@@ -73,9 +76,9 @@ class TodoList {
     });
     this.notify();
   }
-  active(){}
-  completed(){}
-  all(){}
+  active() {}
+  completed() {}
+  all() {}
 }
 
 Object.assign(TodoList.prototype, observerMixin);

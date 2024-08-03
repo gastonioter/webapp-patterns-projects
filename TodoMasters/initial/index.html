@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ToDo Masters</title>
+    <title>ToDo App</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -16,37 +16,41 @@
   </head>
   <body>
     <header>
-      <h1 class="heading">My Todos</h1>
+      <h1 class="heading">TODO APP</h1>
     </header>
     <template id="todoapp-template">
-      <div class="container">
-        <form>
-          <input
-            class="input"
-            type="text"
-            id="todo-input"
-            placeholder="What needs to be done?"
-          />
-          <!-- <button class="button button--add" id="add-btn">+</button> -->
-        </form>
-
-        <ul id="todo-list" class="todo-list"></ul>
-
-        <div class="footer">
-          <p><span id="items-count">33</span> items left</p>
-          <div class="filters">
-            <a href="/" class="filter filter--active">All</a>
-            <a href="/active" class="filter">Active</a>
-            <a href="/done" class="filter">Completed</a>
+      <main class="container">
+        <section>
+          <form>
+            <input
+              class="input"
+              type="text"
+              id="todo-input"
+              placeholder="What needs to be done?"
+            />
+          </form>
+          <ul id="todo-list" class="todo-list"></ul>
+          <div class="footer">
+            <p><span id="items-count">33</span> items left</p>
+            <div class="filters">
+              <a href="/" class="filter filter--active">All</a>
+              <a href="/active" class="filter">Active</a>
+              <a href="/done" class="filter">Completed</a>
+            </div>
+            <button class="button button--delete" id="clear">
+              Clear Completed
+            </button>
           </div>
-          <button class="button button--delete" id="clear">
-            Clear Completed
-          </button>
-        </div>
-      </div>
+        </section>
+      </main>
+      <small class="controls">
+        <p>Ctrl + p to add a todo</p>
+        <p>Ctrl + z to undo</p>
+        <p>Created by Gaston Castro</p>
+      </small>
     </template>
     <template id="todo-item-template">
-      <li class="todo-item" tabindex="0">
+      <li class="todo-item" tabindex="0" class="editing">
         <input type="checkbox" value="done" id="${text}" />
         <label class="checkbox" for="${text}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -69,7 +73,7 @@
     </template>
 
     <footer>
-      <p>Copyright &copy;</p>
+      <p>Copyrigth &copy;</p>
     </footer>
   </body>
 </html>

@@ -24,6 +24,7 @@ html {
   text-align: center;
   font-size: 6rem;
   color: #d96919;
+  margin: 1rem 0;
   font-weight: 700;
 }
 todo-app {
@@ -67,6 +68,14 @@ a {
   font-size: 2rem;
 }
 
+.todo-item.editing label
+.todo-item--updating {
+  border: 2px dashed #d96919;
+}
+.todo-item:focus,
+.todo-item:active {
+  outline: 2px solid #3b2d25;
+}
 .todo-item p {
   margin: 0;
 }
@@ -126,7 +135,7 @@ form input {
   border: none;
   border-radius: 1px;
   padding: 2rem 5rem;
-  font-size: 1.8rem;
+  font-size: 2.4rem;
   border: 2px solid transparent;
 }
 form input:focus {
@@ -135,11 +144,22 @@ form input:focus {
 }
 form input::placeholder {
   font-style: italic;
-  font-size: 1.8rem;
+  font-size: 2.4rem;
   vertical-align: center;
   color: #3b2d25;
 }
 
+.update-input {
+  font-size: 2.4rem;
+  padding-left: 4rem;
+}
+.update-input:active {
+  border: none;
+}
+.update-input:focus {
+  outline: none;
+  border: none;
+}
 /* BUTTONS */
 
 .button {
@@ -173,6 +193,17 @@ form input::placeholder {
 }
 
 /* FOOTER */
+
+.controls {
+  display: block;
+  margin-top: 3rem;
+  text-align: center;
+  color: #ccc;
+  view-transition-name: controls;
+}
+.controls p {
+  margin: 0.4rem;
+}
 
 .footer {
   display: grid;
@@ -215,6 +246,19 @@ form input::placeholder {
   font-weight: bold;
 }
 
+/* FOOTER */
+
+footer {
+  grid-row: 3/4;
+  color: #ccc;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+footer p {
+  margin-top: 1rem;
+}
+
 @media (max-width: 600px) {
   .footer {
     display: flex;
@@ -228,13 +272,22 @@ form input::placeholder {
     order: -1;
   }
   .filters {
+    margin-top: 1rem;
+    display: block;
     text-align: center;
   }
   p {
     margin: 0;
   }
+  .heading {
+    font-size: 5rem;
+  }
   .input {
-    padding: 3rem 2rem;
+    padding: 2rem 3rem;
+    font-size: 1.8rem;
+  }
+  .input::placeholder {
+    font-size: 1.8rem;
   }
 }
 
@@ -264,17 +317,4 @@ todo-app {
     opacity: 1;
     transform: scale(1);
   }
-}
-
-/* FOOTER */
-
-footer {
-  grid-row: 3/4;
-  color: #ccc;
-  text-align: center;
-}
-
-footer p{
-  padding: 3rem;
-  margin: 0;
 }

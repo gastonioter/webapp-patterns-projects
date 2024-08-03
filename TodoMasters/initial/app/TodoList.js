@@ -58,6 +58,12 @@ class TodoList {
     this.notify("todoschange");
   }
 
+  editText(oldText, value) {
+    const todo = this.findByText(oldText);
+    todo.text = value;
+    this.notify("todoschange");
+  }
+
   getByFilter(filterFn) {
     return Array.from(this.#data).filter((todo) => filterFn(todo));
   }

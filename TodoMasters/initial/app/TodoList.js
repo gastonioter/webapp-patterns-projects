@@ -29,8 +29,7 @@ class TodoList {
   }
 
   add(todo) {
-    const todos = Array.from(this.#data);
-    const alreadyExists = todos.some((t) => t.equals(todo));
+    const alreadyExists = this.isRepeted(todo);
     if (!alreadyExists) {
       this.#data.add(todo);
       this.notify("todoschange");
@@ -58,10 +57,16 @@ class TodoList {
     this.notify("todoschange");
   }
 
-  editTodo(text, newTodo) {
-    let todo = this.findByText(text);
-    todo.text = newTodo.text;
-    this.notify("todoschange");
+  isRepeted(todo) {
+    return Array.from(this.#data).some((t) => t.equals(todo));
+  }
+  editTodo(text, newData) {
+    const todo = this.findByText(text);
+    const repetedText = this.findByText(newData.text);
+    if (!repetedText) {
+      todo.text = newData.text;
+      this.notify("todoschange");
+    }
   }
 
   getByFilter(filterFn) {

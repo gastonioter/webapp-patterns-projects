@@ -5,7 +5,6 @@ export const TodoHistory = {
 
   push(state) {
     /* a need to create a brand new collection */
-    console.log(state);
 
     this.history.push(new Set([...state]));
   },

@@ -59,24 +59,31 @@ a {
 
 /* TODO ITEM */
 .todo-item {
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  gap: 2rem;
   border-bottom: 1px solid #ccc;
   padding: 1.5rem 2.5rem;
   transition: transform 0.3s;
   font-size: 2rem;
 }
-
-.todo-item.editing label
-.todo-item--updating {
-  border: 2px dashed #d96919;
+.view {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 2rem;
 }
+.edit {
+  display: none;
+}
+.todo-item--editing .edit {
+  display: block;
+}
+.todo-item--editing .view {
+  display: none;
+}
+
 .todo-item:focus,
 .todo-item:active {
   outline: 2px solid #3b2d25;
 }
-.todo-item p {
+.text {
   margin: 0;
 }
 [type="checkbox"] {
@@ -152,6 +159,7 @@ form input::placeholder {
 .update-input {
   font-size: 2.4rem;
   padding-left: 4rem;
+  border: none;
 }
 .update-input:active {
   border: none;

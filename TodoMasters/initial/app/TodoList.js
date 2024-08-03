@@ -58,9 +58,9 @@ class TodoList {
     this.notify("todoschange");
   }
 
-  editText(oldText, value) {
-    const todo = this.findByText(oldText);
-    todo.text = value;
+  editTodo(text, newTodo) {
+    let todo = this.findByText(text);
+    todo.text = newTodo.text;
     this.notify("todoschange");
   }
 

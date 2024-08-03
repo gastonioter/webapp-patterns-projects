@@ -22,24 +22,6 @@ export class TodoItem extends HTMLElement {
 
     this.$(".delete-btn").addEventListener("click", this.removeTodo.bind(this));
 
-    this.addEventListener("dblclick", (e) => {
-      const input = document.createElement("input");
-      const todoItem = e.target.closest("todo-item");
-      todoItem.querySelector("li").classList.add("todo-item--updating");
-      input.value = todoItem.dataset.text;
-
-      input.classList.add("update-input");
-
-      e.target.replaceChildren(input);
-
-      input.focus();
-
-      input.addEventListener("change", (e) => {
-        TodoList.getInstance().editText(text, e.target.value);
-        todoItem.querySelector("li").classList.remove("todo-item--updating");
-      });
-    });
-
     this.$("[type='checkbox']").checked = done;
 
     this.$("[type='checkbox']").addEventListener("change", (e) => {
